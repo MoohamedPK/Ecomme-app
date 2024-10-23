@@ -1,7 +1,7 @@
 import { Heading } from "@components/common/main";
 import { CartItemsList, CartSubtotalPrice } from "@components/eCommerce/main";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import GetProductsByItems from "@store/Cart/action/GetProductsByItems";
 import { addChangedQuantity } from "@store/Cart/CartSlice";
 import Loading from "src/feedback/loading/Loading";
@@ -17,9 +17,9 @@ function Cart() {
 
     const products = productsFullInfo.map(prod => ({...prod, quantity: items[prod.id]}))
 
-    const changeQuantityHandler = (id:number , quantity: number) => {
+    const changeQuantityHandler = useCallback((id:number , quantity: number) => {
         dispatch(addChangedQuantity({id, quantity }));
-    };
+    }, [dispatch]);
 
   return (
     <>

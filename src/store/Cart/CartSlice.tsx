@@ -32,8 +32,6 @@ const cartSlice = createSlice({
         },
         addChangedQuantity: (state, action) => {
             state.items[action.payload.id] = action.payload.quantity
-            // console.log(state.items[action.payload.id] = action.payload.quantity)
-            // console.log(action.payload.quantity)
         }
     },
     extraReducers: (builder) => {
