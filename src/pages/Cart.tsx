@@ -3,14 +3,13 @@ import { CartItemsList, CartSubtotalPrice } from "@components/eCommerce/main";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { useEffect, useCallback } from "react";
 import GetProductsByItems from "@store/Cart/action/GetProductsByItems";
-import { addChangedQuantity } from "@store/Cart/CartSlice";
+import { addChangedQuantity, removeItemFromCart } from "@store/Cart/CartSlice";
 import Loading from "src/feedback/loading/Loading";
 
 function Cart() {
 
     const dispatch = useAppDispatch();
     const {items, loading, error, productsFullInfo} = useAppSelector(state => state.cart);
-
     useEffect(() => {
         dispatch(GetProductsByItems())
     }, [dispatch])
@@ -21,14 +20,20 @@ function Cart() {
         dispatch(addChangedQuantity({id, quantity }));
     }, [dispatch]);
 
+    const removeCartItem = useCallback((id:number) => {
+        dispatch(removeItemFromCart(id));
+    }, [dispatch])
+
   return (
     <>
         <Heading>Cart</Heading>
     <Loading loading={loading} error={error}>
-        <>
-            <CartItemsList products = {products} changeQuantityHandler = {changeQuantityHandler}/>
-            <CartSubtotalPrice/>
-        </>
+        {products.length ? (
+            <>
+                <CartItemsList products = {products} changeQuantityHandler = {changeQuantityHandler} removeCartItem={removeCartItem}/>
+                <CartSubtotalPrice products= {products}/>
+            </>
+        ) : <div className=" text-center font-semibold ">Your Cart Is Empty</div>}
     </Loading>
     </>
   )

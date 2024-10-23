@@ -1,5 +1,17 @@
+import { TProduct } from "src/types/product"
 
-function CartSubtotalPrice() {
+type TProdPrice = TProduct[];
+
+const CartSubtotalPrice = ({products}: TProdPrice) => {
+ 
+    const totalPrice = products.reduce((acc, curr) => {
+
+        const price = curr.price;
+        const quantity = curr.quantity;
+
+        return acc + price * quantity;
+    }, 0)
+
   return (
         <div className="flex justify-end items-center p-6 mt-8">
             <div className="mx-32">
@@ -7,10 +19,10 @@ function CartSubtotalPrice() {
             </div>
 
             <div>
-                <span className="font-bold text-xl">$200</span>
+                <span className="font-bold text-xl">${totalPrice.toFixed(2)}</span>
             </div>
         </div>
   )
 }
 
-export default CartSubtotalPrice
+export default CartSubtotalPrice;

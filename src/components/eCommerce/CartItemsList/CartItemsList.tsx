@@ -2,11 +2,12 @@ import { TProduct } from "src/types/product";
 import { CartItems } from "../main";
 
 type CartItemPros = {products: TProduct[]
-  changeQuantityHandler: (id:number, quantity:number) => void
+  changeQuantityHandler: (id:number, quantity:number) => void;
+  removeCartItem: (id:number) => void;
 };
 
-function CartItemsList({products, changeQuantityHandler}: CartItemPros) {
-    const renderList = products.map(prod => <CartItems key={prod.id} {...prod} changeQuantityHandler={changeQuantityHandler}/>)
+function CartItemsList({products, changeQuantityHandler, removeCartItem}: CartItemPros) {
+    const renderList = products.map(prod => <CartItems key={prod.id} {...prod} changeQuantityHandler={changeQuantityHandler} removeCartItem={removeCartItem}/>)
   return (
     <div>{renderList}</div>
   )
