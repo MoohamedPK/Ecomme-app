@@ -15,8 +15,11 @@ function Products() {
 
   const {records, loading, error} = useAppSelector(state => state.prods)
   const cartItems = useAppSelector(state => state.cart.items)
+  const wishlistItemsId = useAppSelector(state => state.wishlist.itemsId);
   
-  const prod_full_info = records.map(el => ({...el, quantity: cartItems[el.id] || 0})) 
+  const prod_full_info = records.map(el => (
+    {...el, quantity: cartItems[el.id], isLiked: wishlistItemsId.includes(el.id)}
+  )) 
 
   useEffect(() => {
       dispatch(getProducts(params.prefix as string));

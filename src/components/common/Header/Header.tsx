@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import ShoppingCart from "@components/eCommerce/shoppingCart/ShoppingCart";
+import WishList from "@components/eCommerce/wishlist/WishList";
 
 function Header() {
   return (
@@ -9,7 +10,12 @@ function Header() {
         <div className="logo">
           <h1>My<span> Ecom</span></h1>
         </div>
+
+        <div className="flex items-center">
+          <WishList/>
+          
           <ShoppingCart/>
+        </div>
       </div>
 
       <nav className=" flex justify-between items-center bg-neutral-800 text-neutral-400">

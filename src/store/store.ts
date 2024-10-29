@@ -2,6 +2,7 @@ import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import CategoriesReducer from "../store/categories/categoriesSlice";
 import productsReducer from "../store/products/productsSlice";
 import cartReducer from "../store/Cart/CartSlice";
+import WishlistSlice from "./wishlist/Wishlist";
 
 // PRESIST
 import { persistStore, persistReducer, FLUSH, REHYDRATE, REGISTER, PAUSE, PERSIST, PURGE } from 'redux-persist';
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     prods: productsReducer,
     // the persist reducer is wrap your app root reducers 
     cart: persistReducer(Cart_Config, cartReducer),
+    wishlist : WishlistSlice
 })
 
 const store = configureStore ({

@@ -7,13 +7,11 @@ import { useNavigate } from "react-router-dom";
 
 const {basquet_quantity} = style;
 
-
 function ShoppingCart() {
 
   const [animate, setAnimate] = useState(false);
   const totalQuantity = useAppSelector(getTotalQuantity);
   const quantity_style = `${animate ? basquet_quantity : ""}`
-
   const navigate = useNavigate();
 
   useEffect (() => {
@@ -37,7 +35,7 @@ function ShoppingCart() {
   
 
   return (
-    <div className="relative cursor-pointer" onClick={() => {navigate("/cart")}}>
+    <div className="relative cursor-pointer before:content-[''] before:absolute before:right-9 before:w-[2px] before:h-full before:bg-black" onClick={() => {navigate("/cart")}}>
         <Svg/>
         <div className={`basquet_quantity w-[22px] h-[22px] bg-blue-400 rounded-full absolute top-[-10px] right-[-8px] text-center font-medium ${quantity_style}`}>{totalQuantity}</div>
     </div>

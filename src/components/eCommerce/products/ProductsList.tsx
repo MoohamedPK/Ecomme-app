@@ -3,8 +3,11 @@ import { useAppDispatch } from "@store/hooks";
 import { addToCart } from "@store/Cart/CartSlice";
 import { useState, useEffect } from "react";
 import Spinner from "./Spinner";
+import Like from "../../../assets/svg/heart.svg?react";
+import ActiveLike from "../../../assets/svg/activeHeart.svg?react";
+import actLikeToggle from "@store/wishlist/actions/likeAction";
 
-const ProductsList = ({id, title, img, price, max ,quantity}: TProduct ) => {
+const ProductsList = ({id, title, img, price, max ,quantity, isLiked}: TProduct ) => {
 console.log("fire")
   const dispatch = useAppDispatch();
   const [isBtnClicked, setIsBtnClicked] = useState(false);
@@ -28,10 +31,19 @@ console.log("fire")
 
   }, [isBtnClicked])
 
+  const likeHandler = () => {
+    dispatch(actLikeToggle(id))
+  }
+
   return (
     <div key={id}>
       
-      <div className="card bg-neutral-400/55 w-[250px] py-3 px-4 rounded-lg">
+      <div className="card bg-neutral-400/55 w-[250px] py-3 px-4 rounded-lg relative">
+
+      <div onClick={likeHandler} className="LikeBtn flex justify-center items-center absolute top-0 right-0 w-[28px] h-[28px] cursor-pointer">
+        {isLiked ? <ActiveLike/> : <Like/>}
+      </div>
+
         <div className="w-full h-[250px] rounded-lg">
           <img className="w-full h-full object-cover rounded-lg" src={img} alt={title} />
         </div>
@@ -46,8 +58,6 @@ console.log("fire")
           
         </div>
       </div>
-
-
     </div>
   )
 }
