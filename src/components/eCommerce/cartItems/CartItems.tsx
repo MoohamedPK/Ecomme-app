@@ -1,9 +1,7 @@
 import { TProduct } from "src/types/product";
 import { memo } from "react";
 
-
 type CartItemsProps = TProduct & {changeQuantityHandler: (id:number, quantity:number) => void; removeCartItem: (id:number) => void};
-
 
 const CartItems = memo(({title, img, price, max, quantity , changeQuantityHandler, id, removeCartItem}: CartItemsProps) => {
     // we change the max value to render it as an options elements

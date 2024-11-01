@@ -14,12 +14,19 @@ const Cart_Config = {
     whiteList: ["items"]
 }
 
+const wishlist_Config = {
+    key: "cart",
+    storage, 
+    whiteList: ["items"]
+}
+
 const rootReducer = combineReducers({
     categories: CategoriesReducer,
     prods: productsReducer,
+
     // the persist reducer is wrap your app root reducers 
     cart: persistReducer(Cart_Config, cartReducer),
-    wishlist : WishlistSlice
+    wishlist : persistReducer(wishlist_Config, WishlistSlice)
 })
 
 const store = configureStore ({

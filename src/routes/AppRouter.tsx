@@ -8,6 +8,7 @@ import LogOut from '@pages/LogOut';
 import Login from '@pages/Login';
 import Error from '@pages/Error';
 import Cart from '@pages/Cart';
+import WishlistPage from '@pages/WishlistPage';
 
 import {createBrowserRouter , RouterProvider } from 'react-router-dom';
 
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
     {
       path:"categories",
     element:<Categories/>,
+    },
+    {
+      path:"wishlist",
+    element:<WishlistPage/>,
     },
     {
       path:"about",
