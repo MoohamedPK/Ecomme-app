@@ -1,8 +1,6 @@
 import Category from "@components/eCommerce/shoppingCart/category/Category";
 import Loading from "../feedback/loading/Loading";
-// import GridList from "@components/common/GridList/GridList";
 import { GridList, Heading } from "@components/common/main";
-
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import getCategories from "@store/categories/action/catGetCategories";
 import { useEffect } from "react";

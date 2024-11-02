@@ -3,15 +3,20 @@ import { CartItemsList, CartSubtotalPrice } from "@components/eCommerce/main";
 import { useAppDispatch, useAppSelector } from "@store/hooks";
 import { useEffect, useCallback } from "react";
 import GetProductsByItems from "@store/Cart/action/GetProductsByItems";
-import { addChangedQuantity, removeItemFromCart } from "@store/Cart/CartSlice";
+import { addChangedQuantity, removeItemFromCart, cleanCartProductsFullInfo} from "@store/Cart/CartSlice";
 import Loading from "src/feedback/loading/Loading";
 
 function Cart() {
 
     const dispatch = useAppDispatch();
     const {items, loading, error, productsFullInfo} = useAppSelector(state => state.cart);
+
     useEffect(() => {
         dispatch(GetProductsByItems())
+
+        return () => {
+            dispatch(cleanCartProductsFullInfo());
+        }
     }, [dispatch])
 
     const products = productsFullInfo.map(prod => ({...prod, quantity: items[prod.id]}))
