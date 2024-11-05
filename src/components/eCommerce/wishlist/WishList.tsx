@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 const {basquet_quantity} = style;
 
-function WishList() {
+function WishList() {  
 
     const [animate, setAnimate] = useState(false);
     const totalQuantity = useAppSelector(state => state.wishlist.itemsId);
