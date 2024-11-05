@@ -19,7 +19,7 @@ function Categories() {
 
   return (
     <div className="">  
-    <Heading>Categories</Heading>
+    <Heading title="Your Categories"/>
     <Loading error = {error} loading= {loading}>
       <GridList records={records} renderItem={(record) => <Category  {...record}/> }/>
     </Loading>

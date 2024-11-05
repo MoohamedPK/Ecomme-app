@@ -26,7 +26,7 @@ function WishlistPage() {
 
   return (
     <>
-      <Heading>Your Wishlist</Heading>
+      <Heading title="Your Wishlist"/>
         <Loading loading={loading} error={error}>
           <div className="flex items-center flex-wrap gap-y-10 gap-x-8">
             <GridList<TProduct> records={wishlist_records} renderItem={(record) => <ProductsList  {...record}/> } />

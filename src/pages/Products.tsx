@@ -30,7 +30,7 @@ function Products() {
   )) 
   return (
     <>
-      <Heading> <span className="uppercase text-blue-500">{params.prefix}</span> Products</Heading>
+      <Heading title= {`${params.prefix?.toUpperCase()} Products`}/>
       <div className="flex items-center flex-wrap gap-y-10 gap-x-8">
         <Loading error={error} loading={loading}>
           <GridList<TProduct> records={prod_full_info} renderItem={(record) => <ProductsList  {...record}/> }/>

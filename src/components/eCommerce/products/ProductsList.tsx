@@ -1,13 +1,14 @@
 import { TProduct } from "src/types/product";
 import { useAppDispatch } from "@store/hooks";
 import { addToCart } from "@store/Cart/CartSlice";
-import { useState, useEffect } from "react";
+import { useState, useEffect, memo } from "react";
 import Spinner from "./Spinner";
 import Like from "../../../assets/svg/heart.svg?react";
 import ActiveLike from "../../../assets/svg/activeHeart.svg?react";
 import actLikeToggle from "@store/wishlist/actions/likeAction";
 
-const ProductsList = ({id, title, img, price, max ,quantity, isLiked}: TProduct ) => {
+const ProductsList = memo(({id, title, img, price, max ,quantity, isLiked}: TProduct ) => {
+  console.log("fire prods list")
   const dispatch = useAppDispatch();
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -67,6 +68,6 @@ const ProductsList = ({id, title, img, price, max ,quantity, isLiked}: TProduct 
       </div>
     </div>
   )
-}
+})
 
 export default ProductsList
