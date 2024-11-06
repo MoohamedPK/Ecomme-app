@@ -1,5 +1,5 @@
-import { Link } from "react-router-dom"
-import { TCategoty } from "src/types/category"
+import { Link } from "react-router-dom";
+import { TCategoty } from "@types";
 
 function Category({title, img, prefix}:TCategoty) {
 

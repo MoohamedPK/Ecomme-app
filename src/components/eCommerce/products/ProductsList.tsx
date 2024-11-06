@@ -1,4 +1,4 @@
-import { TProduct } from "src/types/product";
+import { TProduct } from "@types/product.types";
 import { useAppDispatch } from "@store/hooks";
 import { addToCart } from "@store/Cart/CartSlice";
 import { useState, useEffect, memo } from "react";
@@ -8,7 +8,6 @@ import ActiveLike from "../../../assets/svg/activeHeart.svg?react";
 import actLikeToggle from "@store/wishlist/actions/likeAction";
 
 const ProductsList = memo(({id, title, img, price, max ,quantity, isLiked}: TProduct ) => {
-  console.log("fire prods list")
   const dispatch = useAppDispatch();
   const [isBtnDisabled, setIsBtnDisabled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);

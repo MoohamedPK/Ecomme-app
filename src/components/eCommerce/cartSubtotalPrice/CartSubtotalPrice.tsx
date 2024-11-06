@@ -1,4 +1,4 @@
-import { TProduct } from "src/types/product"
+import { TProduct } from "@types/product.types"
 
 type TProdPrice = TProduct[];
 

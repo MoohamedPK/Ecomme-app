@@ -1,25 +1,21 @@
-
-import style from "../headerCounter/shopingcart.module.css";
-import { useState } from "react";
+import style from "../../Header/headerCounter/shopingcart.module.css";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useEffect  } from "react";
 
 type HeaderCounterProps = {
-  navigation: string, 
   svgIcon: React.ReactNode,
-  totalQuantity: number
+  totalQuantity: number,
+  page: string,
 }
 
 const {basquet_quantity} = style;
 
-function HeaderCounter({navigation, svgIcon, totalQuantity }:HeaderCounterProps) {
+function HeaderCounter({svgIcon, totalQuantity, page}: HeaderCounterProps) { 
+    const [animate, setAnimate] = useState(false);
+    const quantity_style = `${animate ? basquet_quantity : ""}`
+    const navigate = useNavigate();
 
-  const [animate, setAnimate] = useState(false);
-  const quantity_style = `${animate ? basquet_quantity : ""}`
-  const navigate = useNavigate();
-
-  useEffect (() => {
-
+    useEffect (() => {
     // if there the quantity = 0 don't animate 
     if (!totalQuantity) {
       return;
@@ -35,13 +31,12 @@ function HeaderCounter({navigation, svgIcon, totalQuantity }:HeaderCounterProps)
     }
   }, [totalQuantity]);
 
-
-  
-
   return (
-    <div className="relative cursor-pointer before:content-[''] before:absolute before:right-9 before:w-[2px] before:h-full before:bg-black" onClick={() => navigate({navigation})}>
+    <div className="relative cursor-pointer mr-6 " onClick={() => navigate(page)}>
         {svgIcon}
-        <div className={`basquet_quantity w-[22px] h-[22px] bg-blue-400 rounded-full absolute top-[-10px] right-[-8px] text-center font-medium ${quantity_style}`}>{totalQuantity}</div>
+        {totalQuantity > 0 && (
+            <div className={`basquet_quantity w-[22px] h-[22px] bg-blue-400 rounded-full absolute top-[-10px] right-[-8px] text-center font-medium  ${quantity_style}`}>{totalQuantity}</div>
+          )}
     </div>
   )
 }

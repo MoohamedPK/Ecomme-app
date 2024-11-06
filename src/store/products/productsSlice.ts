@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import getProducts from "./action/getProductsByPrefix";
-import {TLoading} from "../../types/shared";
-import { TProduct } from "src/types/product";
+import {TLoading, TProduct} from "@types";
 
 // INTERFACE It provides a way to describe the shape of objects, including their properties and methods, without implementing any functionality
 interface IProductssState {

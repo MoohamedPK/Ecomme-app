@@ -1,4 +1,4 @@
-import { TProduct } from "src/types/product";
+import { TProduct } from "@types/product.types";
 import { memo } from "react";
 
 type CartItemsProps = TProduct & {changeQuantityHandler: (id:number, quantity:number) => void; removeCartItem: (id:number) => void};

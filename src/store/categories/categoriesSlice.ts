@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import getCategories from "./action/catGetCategories";
-import {TLoading} from "../../types/shared";
-import { TCategoty } from "src/types/category";
+import {TLoading, TCategoty} from "@types";
 
 // INTERFACE It provides a way to describe the shape of objects, including their properties and methods, without implementing any functionality
 interface ICategoriesState {

@@ -14,7 +14,7 @@ const GridList = <T extends HasId> ({records, renderItem}: TGridList<T>) => {
     <div key={record.id} className="">
         {renderItem(record)}
     </div>
-    ) : "there is no category"
+    ) : "There is no Item"
 
   return (
     <div className="flex flex-wrap justify-center gap-x-20 gap-y-10 ">{categoriesList}</div>

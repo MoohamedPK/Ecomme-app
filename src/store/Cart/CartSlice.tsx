@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { TProduct } from "src/types/product";
-import { TLoading } from "src/types/shared";
+import { TProduct, TLoading } from "@types";
 import GetProductsByItems from "./action/GetProductsByItems";
 
 interface ICartState {
