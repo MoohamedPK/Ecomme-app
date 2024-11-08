@@ -12,7 +12,7 @@ function WishlistPage() {
       <Heading title="Your Wishlist"/>
         <Loading loading={loading} error={error} type="product">
           <div className="flex items-center flex-wrap gap-y-10 gap-x-8">
-            <GridList<TProduct> records={wishlist_records} renderItem={(record) => <ProductsList  {...record}/> } />
+            <GridList<TProduct> message="There is no product" records={wishlist_records} renderItem={(record) => <ProductsList  {...record}/> } />
           </div>
         </Loading>
     </>

@@ -1,4 +1,6 @@
 import { lazy, Suspense } from 'react';
+import Lottie from 'lottie-react';
+import noProducts from "../assets/lottiFiles/noProducts.json";
 
 // PAGES
 // import Home from '@pages/Home';
@@ -36,7 +38,7 @@ const router = createBrowserRouter([
     {
       path:"categories/products/:prefix",
       element:(
-        <Suspense fallback="Please Wait...">
+        <Suspense fallback={<Lottie animationData={noProducts} className=" flex justify-center items-center size-40 mx-auto"/>}>
           <Products/>
         </Suspense>
       ),
@@ -54,7 +56,7 @@ const router = createBrowserRouter([
     {
       path:"categories",
     element:(
-        <Suspense fallback="Please Wait...">
+        <Suspense fallback={<Lottie animationData={noProducts} className=" flex justify-center items-center size-40 mx-auto"/>}>
           <Categories/>
         </Suspense>
       ),
@@ -62,7 +64,7 @@ const router = createBrowserRouter([
     {
       path:"wishlist",
     element:(
-        <Suspense fallback="Please Wait...">
+        <Suspense fallback={<Lottie animationData={noProducts} className=" flex justify-center items-center size-40 mx-auto"/>}>
           <WishlistPage/>
         </Suspense>
       ),
@@ -94,7 +96,7 @@ const router = createBrowserRouter([
     {
       path: "cart",
       element: (
-        <Suspense fallback="Please Wait...">
+        <Suspense fallback={<Lottie animationData={noProducts} className=" flex justify-center items-center size-40 mx-auto"/>}>
           <Cart/>
         </Suspense>
       )
