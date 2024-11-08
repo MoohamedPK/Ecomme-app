@@ -1,39 +1,26 @@
 import { Heading } from "@components/common/main";
 import { CartItemsList, CartSubtotalPrice } from "@components/eCommerce/main";
-import { useAppDispatch, useAppSelector } from "@store/hooks";
-import { useEffect, useCallback } from "react";
-import GetProductsByItems from "@store/Cart/action/GetProductsByItems";
-import { addChangedQuantity, removeItemFromCart } from "@store/Cart/CartSlice";
-import Loading from "src/feedback/loading/Loading";
+import Loading from "../feedback/loading/Loading";
+import useCart from "@hooks/useCart";
+import LottiHandler from "../feedback/LottiHandler/LottiHandler";
 
 function Cart() {
 
-    const dispatch = useAppDispatch();
-    const {items, loading, error, productsFullInfo} = useAppSelector(state => state.cart);
-    useEffect(() => {
-        dispatch(GetProductsByItems())
-    }, [dispatch])
-
-    const products = productsFullInfo.map(prod => ({...prod, quantity: items[prod.id]}))
-
-    const changeQuantityHandler = useCallback((id:number , quantity: number) => {
-        dispatch(addChangedQuantity({id, quantity }));
-    }, [dispatch]);
-
-    const removeCartItem = useCallback((id:number) => {
-        dispatch(removeItemFromCart(id));
-    }, [dispatch])
+    const {loading, error, products, changeQuantityHandler, removeCartItem} = useCart();
 
   return (
     <>
-        <Heading>Cart</Heading>
-    <Loading loading={loading} error={error}>
+        <Heading title="Your Cart"/>
+    <Loading loading={loading} error={error} type="cart">
         {products.length ? (
             <>
                 <CartItemsList products = {products} changeQuantityHandler = {changeQuantityHandler} removeCartItem={removeCartItem}/>
                 <CartSubtotalPrice products= {products}/>
             </>
-        ) : <div className=" text-center font-semibold ">Your Cart Is Empty</div>}
+        ) : <div className=" text-center font-semibold flex flex-col justify-center items-center">
+                <LottiHandler type="loadingProds"/>
+                Your Cart Is Empty
+            </div>}
     </Loading>
     </>
   )

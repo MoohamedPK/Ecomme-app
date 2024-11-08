@@ -1,8 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import actLikeToggle from "./actions/likeAction";
 import actGetWishlist from "./actions/actGetWishlist";
-import { TLoading } from "src/types/shared";
-import { TProduct } from "src/types/product";
+import { TLoading, TProduct } from "@types";
 
 interface IWishlistItems {
     itemsId: number[],
@@ -22,7 +21,7 @@ const WishlistSlice = createSlice({
     name: "wishlist",
     initialState,
     reducers: {
-        productsFullInfoCleanUp: (state) => {
+        clean_Wishlist_Products_FullInfo: (state) => {
             state.productsFullInfo = [];
         }
     },
@@ -63,5 +62,5 @@ const WishlistSlice = createSlice({
 })
 
 export {actLikeToggle, actGetWishlist}
-export const {productsFullInfoCleanUp} = WishlistSlice.actions;
+export const {clean_Wishlist_Products_FullInfo} = WishlistSlice.actions;
 export default WishlistSlice.reducer;
