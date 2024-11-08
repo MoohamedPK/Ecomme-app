@@ -8,14 +8,13 @@ const Categories = lazy(() => import("@pages/Categories"))
 const About = lazy(() => import("@pages/About"))
 const LogOut = lazy(() => import("@pages/LogOut"))
 const Login = lazy(() => import("@pages/Login"))
-const Error = lazy(() => import("@pages/Error"))
+// const Error = lazy(() => import("@pages/Error")) erro shouldn't be on the lazy mode 
 const Cart = lazy(() => import("@pages/Cart"))
 const WishlistPage = lazy(() => import("@pages/WishlistPage"))
 const MainLayouts = lazy(() => import("@components/layouts/MainLayouts/MainLayouts"))
-
+import Error from '@pages/Error';
 
 import {createBrowserRouter , RouterProvider } from 'react-router-dom';
-
 
 const router = createBrowserRouter([
   {

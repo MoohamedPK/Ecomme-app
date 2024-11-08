@@ -9,7 +9,7 @@ function Categories() {
   return (
     <div className="">  
     <Heading title="Your Categories"/>
-    <Loading error = {error} loading= {loading}>
+    <Loading error = {error} loading= {loading} type="category">
       <GridList records={records} renderItem={(record) => <Category  {...record}/> }/>
     </Loading>
     </div>
