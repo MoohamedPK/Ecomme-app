@@ -8,7 +8,7 @@ const Home = lazy(() => import("@pages/Home"))
 const Products = lazy(() => import("@pages/Products"))
 const Categories = lazy(() => import("@pages/Categories"))
 const About = lazy(() => import("@pages/About"))
-const LogOut = lazy(() => import("@pages/LogOut"))
+const LogOut = lazy(() => import("@pages/Register"))
 const Login = lazy(() => import("@pages/Login"))
 // const Error = lazy(() => import("@pages/Error")) erro shouldn't be on the lazy mode 
 const Cart = lazy(() => import("@pages/Cart"))

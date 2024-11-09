@@ -22,8 +22,8 @@ function Header() {
         </ul>
 
         <div>
+          <NavLink className="mx-2 py-1 px-2" to="logout">Register</NavLink>
           <NavLink className="mx-2 py-1 px-2" to="login">Log in</NavLink>
-          <NavLink className="mx-2 py-1 px-2" to="logout">Log out</NavLink>
         </div>
       </nav>
     </header>
