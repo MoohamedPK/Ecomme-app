@@ -11,8 +11,7 @@ const registerSchema = z.object({
   password: z.string().min(8, {message: "Password contains at least 8 characters"})
 
   // regex for using a special charachters 
-  .regex(/.*[!@#$%^&*( ) _+{ } ] [\]\\:"; '<>?, ./].*/,
-  ),
+  .regex(/.*[!@#$%^&*( ) _+{ } ] [\]\\:"; '<>?, ./].*/),
   confirmPassword: z.string().min(8, {message: "Confirm Password Is Required"}),
 }).refine(val => val.password === val.confirmPassword, {
     message: "Your Password Is Not Correct",
@@ -31,6 +30,7 @@ function Register() {
     resolver: zodResolver(registerSchema)
   }); 
 
+  
   const submitForm: SubmitHandler<TFormInputs> = (data) => {
     console.log(data);
   }
@@ -41,20 +41,30 @@ function Register() {
 
           <form action="" className="flex flex-col items-center" onSubmit={handleSubmit(submitForm)}>
 
-          <label htmlFor="">First Name</label>
-          <input className={`my-4 py-1 px-3 border-2 border-neutral-400 rounded-lg w-[300px] outline-none ${errors.firstName?.message ? "border-2 border-red-400" : ''}`} type="text" {...register("firstName")}/>
+          <label htmlFor="" className="my-2 flex flex-col">First Name
+            <input className={`my-1 py-1 px-3 border-2 border-neutral-400 rounded-lg w-[300px] outline-none ${errors.firstName?.message ? "border-2 border-red-400" : ''}`} type="text" {...register("firstName")}/>
+            <span className="text-xs text-red-400 font-semibold">{errors.firstName?.message}</span>
+          </label>
 
-          <label htmlFor="">Last Name</label>
-          <input className="my-4 py-1 px-3 border-2 border-neutral-400 rounded-lg w-[300px]" type="text" {...register("lastName")} />
+          <label htmlFor="" className="my-2 flex flex-col">Last Name   
+            <input className={`my-1 py-1 px-3 border-2 border-neutral-400 rounded-lg w-[300px] outline-none ${errors.lastName?.message ? "border-2 border-red-400" : ''}`} type="text" {...register("lastName")} />
+            <span className="text-xs text-red-400 font-semibold">{errors.lastName?.message}</span>
+          </label>
 
-          <label htmlFor="">Email</label>
-          <input className="my-4 py-1 px-3 border-2 border-neutral-400 rounded-lg w-[300px]" type="text" {...register("email")} />
+          <label htmlFor="" className="my-2 flex flex-col">Email
+            <input className={`my-1 py-1 px-3 border-2 border-neutral-400 rounded-lg w-[300px] outline-none ${errors.email?.message ? "border-2 border-red-400" : ''}`} type="text" {...register("email")} />
+            <span className="text-xs text-red-400 font-semibold">{errors.email?.message}</span>
+          </label>
 
-          <label htmlFor="">Password</label>
-          <input className="my-4 py-1 px-3 border-2 border-neutral-400 rounded-lg w-[300px]" type="password" {...register("password")} />
+          <label htmlFor="" className="my-2 flex flex-col">Password
+            <input className={`my-1 py-1 px-3 border-2 border-neutral-400 rounded-lg w-[300px] outline-none ${errors.password?.message ? "border-2 border-red-400" : ''}`} type="password" {...register("password")} />
+            <span className="text-xs text-red-400 font-semibold">{errors.password?.message}</span>
+          </label>
 
-          <label htmlFor="">Confirm Password</label>
-          <input className="my-4 py-1 px-3 border-2 border-neutral-400 rounded-lg w-[300px]" type="password" {...register("confirmPassword")} />
+          <label htmlFor="" className="my-2 flex flex-col">Confirm Password
+            <input className={`my-1 py-1 px-3 border-2 border-neutral-400 rounded-lg w-[300px] outline-none ${errors.confirmPassword?.message ? "border-2 border-red-400" : ''}`} type="password" {...register("confirmPassword")} />
+            <span className="text-xs text-red-400 font-semibold">{errors.confirmPassword?.message}</span>
+          </label>
 
         <div>
           <button className="bg-blue-400 px-8 py-2 rounded-lg mb-10 mt-5" type="submit">Register</button>
