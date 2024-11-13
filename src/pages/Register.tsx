@@ -1,38 +1,37 @@
 import { useForm, SubmitHandler } from "react-hook-form"
 import { Heading } from "@components/common/main";
-import { z } from "zod";
+import { registerSchema, TFormInputs } from "../validations/SignUpSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-
-const registerSchema = z.object({
-  firstName: z.string().min(1, {message: "First Name Is Required"}),
-  lastName: z.string().min(1, {message: "Last Name Is Required"}),
-  email: z.string().min(1, {message: "Email Is Required"}).email(),
-  password: z.string().min(8, {message: "Password contains at least 8 characters"})
-
-  // regex for using a special charachters 
-  .regex(/.*[!@#$%^&*( ) _+{ } ] [\]\\:"; '<>?, ./].*/),
-  confirmPassword: z.string().min(8, {message: "Confirm Password Is Required"}),
-}).refine(val => val.password === val.confirmPassword, {
-    message: "Your Password Is Not Correct",
-
-    // path allows you to decide where the message display (it takes ARRAY)
-    path: ["confirmPassword"]
-  })
-
-type TFormInputs = z.infer<typeof registerSchema>
+import Input from "@components/forms/input/Input";
+import { useCheckEmailAvailability } from "@hooks/useCheckEmailAvailability";
 
 function Register() {
 
   // HANDLE SUBMIT prop handle the submit form onClick by passing your function to it as a argument 
   // REGISTER handle the input data (the name="")
-  const {register, handleSubmit, formState:{errors}} = useForm<TFormInputs>({
+  const {register, handleSubmit,trigger , getFieldState ,formState:{errors}} = useForm<TFormInputs>({
+    mode: "onBlur",
     resolver: zodResolver(registerSchema)
   }); 
 
-  
+const {emailStatus, entredEmail, checkEmailAvailability, resetEmailAvailability} = useCheckEmailAvailability();
+
   const submitForm: SubmitHandler<TFormInputs> = (data) => {
     console.log(data);
+  }
+
+  const emailOnBlurHandler = async (e: React.FocusEvent<HTMLInputElement>) => {
+    await trigger("email")
+    const {isDirty, invalid} = getFieldState("email");
+    const value = e.target.value;
+    if (isDirty && !invalid && entredEmail !== value) {
+      //checking
+      checkEmailAvailability(value)
+    }
+
+    if (entredEmail && value.length === 0) {
+      resetEmailAvailability();
+    }
   }
 
   return (
@@ -41,34 +40,23 @@ function Register() {
 
           <form action="" className="flex flex-col items-center" onSubmit={handleSubmit(submitForm)}>
 
-          <label htmlFor="" className="my-2 flex flex-col">First Name
-            <input className={`my-1 py-1 px-3 border-2 border-neutral-400 rounded-lg w-[300px] outline-none ${errors.firstName?.message ? "border-2 border-red-400" : ''}`} type="text" {...register("firstName")}/>
-            <span className="text-xs text-red-400 font-semibold">{errors.firstName?.message}</span>
-          </label>
+          <Input name='firstName' type="text" label='First Name' error={errors.firstName?.message} register={register} />
 
-          <label htmlFor="" className="my-2 flex flex-col">Last Name   
-            <input className={`my-1 py-1 px-3 border-2 border-neutral-400 rounded-lg w-[300px] outline-none ${errors.lastName?.message ? "border-2 border-red-400" : ''}`} type="text" {...register("lastName")} />
-            <span className="text-xs text-red-400 font-semibold">{errors.lastName?.message}</span>
-          </label>
+          <Input name='lastName' type="text" label='Last Name' error={errors.lastName?.message} register={register} />
 
-          <label htmlFor="" className="my-2 flex flex-col">Email
-            <input className={`my-1 py-1 px-3 border-2 border-neutral-400 rounded-lg w-[300px] outline-none ${errors.email?.message ? "border-2 border-red-400" : ''}`} type="text" {...register("email")} />
-            <span className="text-xs text-red-400 font-semibold">{errors.email?.message}</span>
-          </label>
+          <Input name='email' type="email" label='Email' error={errors.email?.message} register={register}
+          onBlur={emailOnBlurHandler}
+          formText={emailStatus === "checking" ? "chekcing email, please wait..." : ""}
+          success= {emailStatus === 'available'? "email allready used" :""}
+          />
 
-          <label htmlFor="" className="my-2 flex flex-col">Password
-            <input className={`my-1 py-1 px-3 border-2 border-neutral-400 rounded-lg w-[300px] outline-none ${errors.password?.message ? "border-2 border-red-400" : ''}`} type="password" {...register("password")} />
-            <span className="text-xs text-red-400 font-semibold">{errors.password?.message}</span>
-          </label>
+          <Input name='password' type="password" label='Password' error={errors.password?.message} register={register} />
 
-          <label htmlFor="" className="my-2 flex flex-col">Confirm Password
-            <input className={`my-1 py-1 px-3 border-2 border-neutral-400 rounded-lg w-[300px] outline-none ${errors.confirmPassword?.message ? "border-2 border-red-400" : ''}`} type="password" {...register("confirmPassword")} />
-            <span className="text-xs text-red-400 font-semibold">{errors.confirmPassword?.message}</span>
-          </label>
+          <Input name='confirmPassword' type="password" label='Confirm Password' error={errors.confirmPassword?.message} register={register} />
 
-        <div>
-          <button className="bg-blue-400 px-8 py-2 rounded-lg mb-10 mt-5" type="submit">Register</button>
-        </div>
+          <div>
+            <button className="bg-blue-400 px-8 py-2 rounded-lg mb-10 mt-5" type="submit">Register</button>
+          </div>
       </form>
     </>
 
