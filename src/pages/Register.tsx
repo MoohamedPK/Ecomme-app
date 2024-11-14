@@ -4,8 +4,15 @@ import { registerSchema, TFormInputs } from "../validations/SignUpSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Input from "@components/forms/input/Input";
 import { useCheckEmailAvailability } from "@hooks/useCheckEmailAvailability";
+import registerAuthAction from "@store/auth/act/actAuthRegister";
+import { useAppDispatch, useAppSelector } from "@store/hooks";
+import Spinner from "@components/eCommerce/products/Spinner";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
+  const dispatch = useAppDispatch();
+  const { loading} = useAppSelector(state => state.auth);
+  const navigate = useNavigate();
 
   // HANDLE SUBMIT prop handle the submit form onClick by passing your function to it as a argument 
   // REGISTER handle the input data (the name="")
@@ -17,7 +24,12 @@ function Register() {
 const {emailStatus, entredEmail, checkEmailAvailability, resetEmailAvailability} = useCheckEmailAvailability();
 
   const submitForm: SubmitHandler<TFormInputs> = (data) => {
-    console.log(data);
+    // we dont need all the data so we will destructure it 
+    const {firstName, lastName, email, password} = data
+
+    dispatch(registerAuthAction({firstName, lastName, email, password})).unwrap().then(() => {
+      navigate('/login')
+    })
   }
 
   const emailOnBlurHandler = async (e: React.FocusEvent<HTMLInputElement>) => {
@@ -26,7 +38,7 @@ const {emailStatus, entredEmail, checkEmailAvailability, resetEmailAvailability}
     const value = e.target.value;
     if (isDirty && !invalid && entredEmail !== value) {
       //checking
-      checkEmailAvailability(value)
+      checkEmailAvailability(value);
     }
 
     if (entredEmail && value.length === 0) {
@@ -47,7 +59,6 @@ const {emailStatus, entredEmail, checkEmailAvailability, resetEmailAvailability}
           <Input name='email' type="email" label='Email' error={errors.email?.message} register={register}
           onBlur={emailOnBlurHandler}
           formText={emailStatus === "checking" ? "chekcing email, please wait..." : ""}
-          success= {emailStatus === 'available'? "email allready used" :""}
           />
 
           <Input name='password' type="password" label='Password' error={errors.password?.message} register={register} />
@@ -55,7 +66,15 @@ const {emailStatus, entredEmail, checkEmailAvailability, resetEmailAvailability}
           <Input name='confirmPassword' type="password" label='Confirm Password' error={errors.confirmPassword?.message} register={register} />
 
           <div>
-            <button className="bg-blue-400 px-8 py-2 rounded-lg mb-10 mt-5" type="submit">Register</button>
+            <button className={" bg-blue-400 px-8 py-2 rounded-lg mb-10 mt-5"} type="submit"
+              disabled={(emailStatus === "checking" ? true : false ) || loading === "pending"}>
+              {loading === "pending" ? (
+                <>
+                  <Spinner></Spinner>
+                </>
+              ) : ("Register")}
+              
+            </button>
           </div>
       </form>
     </>

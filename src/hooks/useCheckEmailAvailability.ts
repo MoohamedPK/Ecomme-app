@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
 
-
 type TStatus = "idle" | "checking" | "available" | "notAvailable" | "failed";
 
 const useCheckEmailAvailability = () => {
@@ -24,14 +23,13 @@ const useCheckEmailAvailability = () => {
     } catch {
         setEmailStatus("failed");
     }
-
 }
 
     const resetEmailAvailability = () => {
         setEmailStatus("idle");
         setEntredEmail(null);
     }
-    
+
     return {emailStatus, entredEmail, checkEmailAvailability, resetEmailAvailability}
 }
 

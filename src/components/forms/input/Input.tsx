@@ -11,7 +11,7 @@ type TInputProps<TFieldValue extends FieldValues> = {
     success?: string,
 }
 
-function Input<TFieldValue extends FieldValues>({error, name, register, label, type, onBlur, formText, success}:TInputProps<TFieldValue>) {
+function Input<TFieldValue extends FieldValues>({error, name, register, label, type, onBlur, formText}:TInputProps<TFieldValue>) {
 
   const onBlurHandler = (e:React.FocusEvent<HTMLInputElement>) => {
     if (onBlur) {

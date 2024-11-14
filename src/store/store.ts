@@ -3,6 +3,7 @@ import CategoriesReducer from "../store/categories/categoriesSlice";
 import productsReducer from "../store/products/productsSlice";
 import cartReducer from "../store/Cart/CartSlice";
 import WishlistSlice from "./wishlist/Wishlist";
+import authSlice from "../store/auth/authSlice";
 
 // PRESIST
 import { persistStore, persistReducer, FLUSH, REHYDRATE, REGISTER, PAUSE, PERSIST, PURGE } from 'redux-persist';
@@ -21,6 +22,7 @@ const wishlist_Config = {
 }
 
 const rootReducer = combineReducers({
+    auth:authSlice,
     categories: CategoriesReducer,
     prods: productsReducer,
 
