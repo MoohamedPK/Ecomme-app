@@ -32,6 +32,4 @@ const useCheckEmailAvailability = () => {
 
     return {emailStatus, entredEmail, checkEmailAvailability, resetEmailAvailability}
 }
-
-
 export {useCheckEmailAvailability}

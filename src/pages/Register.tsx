@@ -28,7 +28,7 @@ const {emailStatus, entredEmail, checkEmailAvailability, resetEmailAvailability}
     const {firstName, lastName, email, password} = data
 
     dispatch(registerAuthAction({firstName, lastName, email, password})).unwrap().then(() => {
-      navigate('/login')
+      navigate('/login?message=account_created')
     })
   }
 

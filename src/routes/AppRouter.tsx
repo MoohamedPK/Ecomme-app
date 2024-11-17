@@ -14,7 +14,11 @@ const Login = lazy(() => import("@pages/Login"))
 const Cart = lazy(() => import("@pages/Cart"))
 const WishlistPage = lazy(() => import("@pages/WishlistPage"))
 const MainLayouts = lazy(() => import("@components/layouts/MainLayouts/MainLayouts"))
+const Profile = lazy(() => import("@pages/Profile"))
 import Error from '@pages/Error';
+
+// AUTH PROTECTION 
+import AuthProtection from '@components/Auth/AuthProtection';
 
 import {createBrowserRouter , RouterProvider } from 'react-router-dom';
 
@@ -64,9 +68,11 @@ const router = createBrowserRouter([
     {
       path:"wishlist",
     element:(
+      <AuthProtection>  
         <Suspense fallback={<Lottie animationData={noProducts} className=" flex justify-center items-center size-40 mx-auto"/>}>
           <WishlistPage/>
         </Suspense>
+      </AuthProtection>
       ),
     },
     {
@@ -96,11 +102,24 @@ const router = createBrowserRouter([
     {
       path: "cart",
       element: (
-        <Suspense fallback={<Lottie animationData={noProducts} className=" flex justify-center items-center size-40 mx-auto"/>}>
-          <Cart/>
-        </Suspense>
+        <AuthProtection>
+          <Suspense fallback={<Lottie animationData={noProducts} className=" flex justify-center items-center size-40 mx-auto"/>}>
+            <Cart/>
+          </Suspense>
+        </AuthProtection>
       )
-    }
+    },
+
+    {
+      path: "profile",
+      element: (
+        <AuthProtection>
+          <Suspense fallback={<Lottie animationData={noProducts} className=" flex justify-center items-center size-40 mx-auto"/>}>
+            <Profile/>
+          </Suspense>
+        </AuthProtection>
+      )
+    },
   ]
   },
 

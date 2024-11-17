@@ -16,7 +16,7 @@ const registerAuthAction = createAsyncThunk("auth/registerAuthAction", async(for
         const resposne = await axios.post("/users",formData)
         return resposne.data;
     } catch (error) {
-        rejectWithValue(axiosErrorHandler(error))
+        return rejectWithValue(axiosErrorHandler(error))
     }
 })
 
