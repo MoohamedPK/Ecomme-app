@@ -1,5 +1,6 @@
-import { TProduct } from "@types/product.types";
+import { TProduct } from "@types";
 import { memo } from "react";
+import { ProductInfo } from "../productInfo/ProductInfo";
 
 type CartItemsProps = TProduct & {changeQuantityHandler: (id:number, quantity:number) => void; removeCartItem: (id:number) => void};
 
@@ -20,22 +21,12 @@ const CartItems = memo(({title, img, price, max, quantity , changeQuantityHandle
   return (
     <div className="main">
         <div className="product flex justify-between items-center my-5">
-            <div className="flex items-center ">
-                <div className="product_img w-[200px] h-[200px] bg-black rounded-lg">
-                    <img className="object-cover w-full h-full" src={img} alt={title} />
-                </div>
 
-                <div className="ml-7">
-                    <div>
-                        <h1 className="mb-2">{title}</h1>
-                        <p>${price.toFixed(2)}</p>
-                    </div>
-
-                    <div className="mt-8">
-                        <button onClick={() => removeCartItem(id)} className="bg-neutral-500 rounded-lg px-3 text-white py-1">Remove</button>
-                    </div>
+            <ProductInfo title={title} price={price} img={img} >
+                <div className="mt-8">
+                    <button onClick={() => removeCartItem(id)} className="bg-neutral-500 rounded-lg px-3 text-white py-1">Remove</button>
                 </div>
-            </div>
+            </ProductInfo>
 
             <div className="cartItemSelection mx-6 flex flex-col ">
                 <span className="mb-4">Quantity</span>
