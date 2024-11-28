@@ -12,6 +12,8 @@ function useProducts() {
   const {records, loading, error} = useAppSelector(state => state.prods)
   const cartItems = useAppSelector(state => state.cart.items)
   const wishlistItemsId = useAppSelector(state => state.wishlist.itemsId);
+
+  const userAccessToken = useAppSelector(state => state.auth.accessToken);
   
   
   useEffect(() => {
@@ -24,7 +26,7 @@ function useProducts() {
   }, [dispatch, params])
   
   const prod_full_info = records.map(el => (
-    {...el, quantity: cartItems[el.id], isLiked: wishlistItemsId.includes(el.id)}
+    {...el, quantity: cartItems[el.id], isLiked: wishlistItemsId.includes(el.id), isAuthenticated: userAccessToken ? true : false}
   )) 
 
   return {loading, error, prod_full_info, paramsPrefix}

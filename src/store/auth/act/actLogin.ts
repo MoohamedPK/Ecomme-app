@@ -22,7 +22,7 @@ const logInAction = createAsyncThunk("login/logInAction", async(loginData:TLogin
     const {rejectWithValue} = thunkAPI;
 
     try {
-        const response = await axios.post<TResponse>("/login", loginData);
+        const response = await axios.post<TResponse>("/signin", loginData);
         return response.data
     } catch (error) {
         return rejectWithValue(axiosErrorHandler(error))

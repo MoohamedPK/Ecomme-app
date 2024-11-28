@@ -6,7 +6,8 @@ import { useAppSelector } from "@store/hooks";
 
 function ReusableCompo() {
     
-  const wishlistTotalQuantity = useAppSelector(state => state.wishlist.itemsId.length);
+  const wishlistTotalQuantity = useAppSelector((state) => state.wishlist.itemsId.length);
+  
   const cartTotalQuantity = useAppSelector(getTotalQuantity);
 
   return (

@@ -33,6 +33,7 @@ function HeaderCounter({svgIcon, totalQuantity, page}: HeaderCounterProps) {
 
   return (
     <div className="relative cursor-pointer mr-6 " onClick={() => navigate(page)}>
+      
         {svgIcon}
         {totalQuantity > 0 && (
             <div className={`basquet_quantity w-[22px] h-[22px] bg-blue-400 rounded-full absolute top-[-10px] right-[-8px] text-center font-medium  ${quantity_style}`}>{totalQuantity}</div>

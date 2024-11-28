@@ -13,9 +13,15 @@ const Login = lazy(() => import("@pages/Login"))
 // const Error = lazy(() => import("@pages/Error")) erro shouldn't be on the lazy mode 
 const Cart = lazy(() => import("@pages/Cart"))
 const WishlistPage = lazy(() => import("@pages/WishlistPage"))
-const MainLayouts = lazy(() => import("@components/layouts/MainLayouts/MainLayouts"))
-const Profile = lazy(() => import("@pages/Profile"))
+const Account = lazy(() => import("@pages/Account"))
+const Orders = lazy(() => import("@pages/Orders"))
+
 import Error from '@pages/Error';
+
+//LAYOUTS COMPOS 
+const MainLayouts = lazy(() => import("@components/layouts/MainLayouts/MainLayouts"))
+const ProfileLayout = lazy(() => import("@components/layouts/ProfileLayout/ProfileLayout"))
+
 
 // AUTH PROTECTION 
 import AuthProtection from '@components/Auth/AuthProtection';
@@ -115,10 +121,28 @@ const router = createBrowserRouter([
       element: (
         <AuthProtection>
           <Suspense fallback={<Lottie animationData={noProducts} className=" flex justify-center items-center size-40 mx-auto"/>}>
-            <Profile/>
+            <ProfileLayout/>
           </Suspense>
         </AuthProtection>
-      )
+      ),
+
+      // you don't need to protect the children while you're protecting the parent 
+      children : [
+        {index:true,
+        element: (
+          <Suspense fallback={<Lottie animationData={noProducts} className=" flex justify-center items-center size-40 mx-auto"/>}>
+            <Account/>
+          </Suspense>
+      )},
+
+      {
+        path:"orders",
+      element: (
+          <Suspense fallback={<Lottie animationData={noProducts} className=" flex justify-center items-center size-40 mx-auto"/>}>
+            <Orders/>
+          </Suspense>
+      )},
+      ]
     },
   ]
   },

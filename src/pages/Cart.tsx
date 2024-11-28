@@ -6,7 +6,7 @@ import LottiHandler from "../feedback/LottiHandler/LottiHandler";
 
 function Cart() {
 
-    const {loading, error, products, changeQuantityHandler, removeCartItem} = useCart();
+    const {loading, error, products, changeQuantityHandler, removeCartItem, userAccessToken, placeOrderStatus} = useCart();
 
   return (
     <>
@@ -15,12 +15,20 @@ function Cart() {
         {products.length ? (
             <>
                 <CartItemsList products = {products} changeQuantityHandler = {changeQuantityHandler} removeCartItem={removeCartItem}/>
-                <CartSubtotalPrice products= {products}/>
+                <CartSubtotalPrice userAccessToken={userAccessToken}  products= {products}/>
             </>
-        ) : <div className=" text-center font-semibold flex flex-col justify-center items-center">
-                <LottiHandler type="loadingProds"/>
-                Your Cart Is Empty
-            </div>}
+        ) :  (
+            placeOrderStatus === "succeeded" ?
+                <div className=" text-center font-semibold flex flex-col justify-center items-center">
+                    <LottiHandler type="success" message="Your order has been placed successfully"/>
+                </div>
+                
+             : (
+                <div className=" text-center font-semibold flex flex-col justify-center items-center">
+                    <LottiHandler type="loadingProds" message="Your Cart Is Empty"/>
+                </div>
+            ) 
+        )}
     </Loading>
     </>
   )

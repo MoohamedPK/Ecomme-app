@@ -49,7 +49,7 @@ const authSlice = createSlice({
 
         // login action 
 
-        builder.addCase(logInAction.pending, (state, action) => {
+        builder.addCase(logInAction.pending, (state) => {
             state.loading = "pending"
         })
         builder.addCase(logInAction.fulfilled, (state, action) => {
